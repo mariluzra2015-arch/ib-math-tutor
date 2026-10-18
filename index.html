@@ -2,140 +2,230 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1">
-  <title>IB Math Tutor</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f2f6fc;
-      color: #183153;
-      text-align: center;
-    }
-    header {
-      background: #173b73;
-      color: white;
-      padding: 35px 15px;
-    }
-    main { padding: 25px 15px; }
-    .courses {
-      display: grid;
-      grid-template-columns:
-        repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
-      max-width: 950px;
-      margin: 25px auto;
-    }
-    .course {
-      background: white;
-      padding: 25px;
-      border-radius: 16px;
-      box-shadow: 0 3px 12px #0001;
-    }
-    button {
-      padding: 12px 22px;
-      background: #2563eb;
-      color: white;
-      border: 0;
-      border-radius: 9px;
-      cursor: pointer;
-    }
-    button:disabled {
-      background: #94a3b8;
-      cursor: not-allowed;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IB Math Tutor</title>
+<style>
+:root{--navy:#102b50;--blue:#2563eb;--bg:#f3f6fc;--line:#dce5f2}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--navy)}
+header{background:linear-gradient(120deg,#102b50,#2563eb);color:white;padding:28px 5%}
+header h1{margin:0 0 8px;font-size:30px}
+header p{margin:0 0 16px}
+main{max-width:1100px;margin:auto;padding:24px 16px 60px}
+button{cursor:pointer;border:0;border-radius:10px;padding:12px 18px;font-weight:600;font-size:15px}
+.primary{background:var(--blue);color:white}
+.secondary{background:#e7efff;color:#163e7b}
+button:disabled{background:#cbd5e1;color:#64748b;cursor:not-allowed}
+.card{background:white;border:1px solid var(--line);border-radius:17px;padding:23px;box-shadow:0 4px 14px #102b5010}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+h2{margin-top:12px}
+small,.muted{color:#64748b}
+.tag{display:inline-block;background:#eaf1ff;color:#2455a6;border-radius:20px;padding:6px 11px;font-size:13px}
+.progress{height:12px;background:#e2e8f0;border-radius:20px;overflow:hidden}
+.fill{height:100%;background:#22a06b;width:0%;transition:width .3s}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.lesson{margin-bottom:15px}
+.lesson button{margin-top:12px}
+.example{background:#f2f6ff;padding:16px;border-left:4px solid var(--blue);border-radius:8px;line-height:1.8}
+.question{background:white;border:1px solid var(--line);padding:18px;border-radius:14px;margin:14px 0}
+.question input{width:160px;max-width:100%;padding:11px;border:1px solid #b8c6d9;border-radius:8px;font-size:16px}
+.feedback{margin-top:12px;font-weight:600;line-height:1.5}
+.correct{color:#167344}.incorrect{color:#b45309}
+#app{min-height:350px}
+footer{text-align:center;padding:25px;color:#64748b}
+@media(max-width:600px){header h1{font-size:25px}.card{padding:18px}}
+</style>
 </head>
 <body>
-  <header>
-    <h1>IB Math Tutor</h1>
-    <p id="subtitle">Aprende matemáticas paso a paso</p>
-    <button onclick="changeLanguage()">
-      English / Español
-    </button>
-  </header>
-
-  <main>
-    <h2 id="heading">Selecciona tu grado</h2>
-    <div class="courses">
-      <div class="course">
-        <h2>G9</h2>
-        <p>Pre-IB Foundation</p>
-        <button onclick="openG9()" id="start">
-          Comenzar
-        </button>
-      </div>
-      <div class="course">
-        <h2>G10</h2>
-        <p>Pre-Diploma</p>
-        <button disabled>Coming soon</button>
-      </div>
-      <div class="course">
-        <h2>G11</h2>
-        <p>AA SL - Year 1</p>
-        <button disabled>Coming soon</button>
-      </div>
-      <div class="course">
-        <h2>G12</h2>
-        <p>AA SL - Year 2</p>
-        <button disabled>Coming soon</button>
-      </div>
-    </div>
-    <section id="content"></section>
-  </main>
-
-  <script>
-    let english = false;
-
-    function changeLanguage() {
-      english = !english;
-      document.getElementById("subtitle")
-        .textContent = english
-        ? "Learn mathematics step by step"
-        : "Aprende matemáticas paso a paso";
-      document.getElementById("heading")
-        .textContent = english
-        ? "Choose your grade"
-        : "Selecciona tu grado";
-      document.getElementById("start")
-        .textContent = english ? "Start" : "Comenzar";
-      if (document.getElementById("content").innerHTML) {
-        openG9();
-      }
-    }
-
-    function openG9() {
-      const topics = english
-        ? ["Number and Operations",
-           "Algebraic Expressions",
-           "Equations and Inequalities",
-           "Functions and Graphs",
-           "Quadratic Expressions",
-           "Geometry",
-           "Trigonometry",
-           "Statistics",
-           "Probability"]
-        : ["Números y operaciones",
-           "Expresiones algebraicas",
-           "Ecuaciones e inecuaciones",
-           "Funciones y gráficas",
-           "Expresiones cuadráticas",
-           "Geometría",
-           "Trigonometría",
-           "Estadística",
-           "Probabilidad"];
-
-      const section = document.getElementById("content");
-      section.innerHTML =
-        "<h2>G9 - Pre-IB Foundation</h2>" +
-        topics.map((topic, i) =>
-          "<p>" + (i + 1) + ". " + topic + "</p>"
-        ).join("");
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  </script>
+<header>
+ <div class="row">
+  <div>
+   <h1>IB Math Tutor</h1>
+   <p id="subtitle"></p>
+  </div>
+  <button class="secondary" onclick="switchLanguage()">EN / ES</button>
+ </div>
+</header>
+<main id="app"></main>
+<footer>IB Math Tutor · Independent learning platform</footer>
+<script>
+let lang="es",screen="home",current=0;
+const STORAGE="ibmt_g9_unit1_v1";
+let saved={};
+try{saved=JSON.parse(localStorage.getItem(STORAGE)||"{}")}catch(e){saved={}}
+const units=[
+["Números y operaciones","Number and Operations"],
+["Expresiones algebraicas","Algebraic Expressions"],
+["Ecuaciones e inecuaciones","Equations and Inequalities"],
+["Funciones y gráficas","Functions and Graphs"],
+["Expresiones cuadráticas","Quadratic Expressions"],
+["Geometría","Geometry"],
+["Trigonometría","Trigonometry"],
+["Estadística","Statistics"],
+["Probabilidad","Probability"]
+];
+const lessons=[
+{
+title:["Enteros y orden de operaciones","Integers and Order of Operations"],
+intro:[
+"Los enteros incluyen números negativos, el cero y números positivos. Para resolver expresiones combinadas, primero trabajamos los paréntesis, luego potencias, después multiplicaciones y divisiones, y finalmente sumas y restas.",
+"Integers include negative numbers, zero and positive numbers. Evaluate brackets first, then powers, multiplication and division, and finally addition and subtraction."
+],
+example:[
+"Calcula: 8 − 3 × (−2)<br>1. Primero multiplicamos: 3 × (−2) = −6.<br>2. Luego: 8 − (−6) = 14.",
+"Evaluate: 8 − 3 × (−2)<br>1. Multiply first: 3 × (−2) = −6.<br>2. Then: 8 − (−6) = 14."
+],
+questions:[
+["−7 + 12",5,"Suma los enteros considerando sus signos.","Add the integers, paying attention to signs."],
+["6 − 4 × 3",-6,"Primero calcula 4 × 3.","Calculate 4 × 3 first."],
+["(−5) × (−4)",20,"El producto de dos negativos es positivo.","Two negative numbers multiply to give a positive number."],
+["18 ÷ (−3) + 8",2,"Resuelve la división antes de sumar.","Divide before adding."]
+]
+},
+{
+title:["Fracciones y números racionales","Fractions and Rational Numbers"],
+intro:[
+"Un número racional puede escribirse como a/b, donde a y b son enteros y b es distinto de cero. Para sumar fracciones usamos un denominador común; para multiplicarlas, multiplicamos numeradores y denominadores.",
+"A rational number can be written as a/b, where a and b are integers and b is not zero. Use a common denominator to add fractions; multiply numerators and denominators to multiply fractions."
+],
+example:[
+"Calcula: 1/2 + 1/4<br>1. Expresamos 1/2 como 2/4.<br>2. Sumamos: 2/4 + 1/4 = 3/4 = 0.75.",
+"Evaluate: 1/2 + 1/4<br>1. Rewrite 1/2 as 2/4.<br>2. Add: 2/4 + 1/4 = 3/4 = 0.75."
+],
+questions:[
+["1/2 + 1/4",0.75,"Usa denominador común 4.","Use 4 as the common denominator."],
+["3/5 × 10",6,"Multiplica y simplifica.","Multiply and simplify."],
+["7/8 − 1/4",0.625,"Convierte 1/4 en octavos.","Express 1/4 in eighths."],
+["2/3 ÷ 4/9",1.5,"Multiplica por el recíproco.","Multiply by the reciprocal."]
+]
+},
+{
+title:["Potencias y raíces","Powers and Roots"],
+intro:[
+"Una potencia representa multiplicaciones repetidas. Si las bases son iguales, al multiplicar potencias sumamos exponentes. La raíz cuadrada principal es el número no negativo cuyo cuadrado da el radicando.",
+"A power represents repeated multiplication. When multiplying powers with the same base, add the exponents. The principal square root is the non-negative number whose square equals the radicand."
+],
+example:[
+"Calcula: 2³ × 2²<br>1. Las bases son iguales.<br>2. Sumamos exponentes: 2⁵ = 32.",
+"Evaluate: 2³ × 2²<br>1. The bases are the same.<br>2. Add exponents: 2⁵ = 32."
+],
+questions:[
+["2^4",16,"Multiplica cuatro factores iguales a 2.","Multiply four factors of 2."],
+["√81",9,"Busca el número positivo cuyo cuadrado es 81.","Find the positive number whose square is 81."],
+["3^2 × 3^1",27,"Suma los exponentes.","Add the exponents."],
+["5^0",1,"Toda base no nula elevada a cero vale 1.","Any non-zero base to the power zero equals 1."]
+]
+},
+{
+title:["Razones, proporciones y porcentajes","Ratios, Proportions and Percentages"],
+intro:[
+"Una razón compara cantidades. Una proporción expresa la igualdad de dos razones. Un porcentaje representa una cantidad por cada cien y puede utilizarse para calcular descuentos, aumentos y cambios relativos.",
+"A ratio compares quantities. A proportion states that two ratios are equal. A percentage represents an amount out of one hundred and can be used for discounts, increases and relative changes."
+],
+example:[
+"Calcula el 15 % de 200.<br>1. Convierte 15 % en 0.15.<br>2. Multiplica: 0.15 × 200 = 30.",
+"Find 15% of 200.<br>1. Convert 15% to 0.15.<br>2. Multiply: 0.15 × 200 = 30."
+],
+questions:[
+["20% de/of 150",30,"Calcula 0.20 × 150.","Calculate 0.20 × 150."],
+["25% de/of 80",20,"Una cuarta parte equivale a 25%.","One quarter is 25%."],
+["3/4 = x/20. x = ?",15,"Multiplica 20 por 3/4.","Multiply 20 by 3/4."],
+["Precio/Price 100; descuento/discount 15%. Final = ?",85,"Resta 15% del precio original.","Subtract 15% of the original price."]
+]
+}
+];
+const t=(es,en)=>lang==="es"?es:en;
+const app=document.getElementById("app");
+function store(){try{localStorage.setItem(STORAGE,JSON.stringify(saved))}catch(e){}}
+function completed(i){return lessons[i].questions.every((q,j)=>saved[i+"-"+j]===true)}
+function count(){return lessons.reduce((n,l,i)=>n+l.questions.filter((q,j)=>saved[i+"-"+j]===true).length,0)}
+function progress(){
+let n=count();
+return `<p>${t("Ejercicios correctos","Correct exercises")}: <b>${n}/16</b></p>
+<div class="progress"><div class="fill" style="width:${n/16*100}%"></div></div>`;
+}
+function nav(){
+return `<button class="secondary" onclick="screen='home';render()">← ${t("Inicio","Home")}</button>`;
+}
+function render(){
+document.getElementById("subtitle").textContent=t("Aprende matemáticas paso a paso","Learn mathematics step by step");
+if(screen==="home"){
+app.innerHTML=`<h2>${t("Selecciona tu grado","Choose your grade")}</h2>
+<div class="grid">
+${["G9","G10","G11","G12"].map((g,i)=>`
+<div class="card"><h2>${g}</h2>
+<p>${["Pre-IB Foundation","Pre-Diploma","AA SL · Year 1","AA SL · Year 2"][i]}</p>
+<button class="primary" ${i?'disabled':''} onclick="screen='units';render()">
+${i?t("Próximamente","Coming soon"):t("Comenzar","Start")}</button></div>`).join("")}
+</div>`;
+}else if(screen==="units"){
+app.innerHTML=`${nav()}<h2>G9 · Pre-IB Foundation</h2>
+<div class="grid">${units.map((u,i)=>`
+<div class="card"><span class="tag">${t("Unidad","Unit")} ${i+1}</span>
+<h3>${u[lang==="es"?0:1]}</h3>
+${i===0?`<p>${t("4 lecciones · 16 ejercicios","4 lessons · 16 exercises")}</p>
+<button class="primary" onclick="screen='overview';render()">${t("Explorar unidad","Explore unit")}</button>`:
+`<button disabled>${t("Próximamente","Coming soon")}</button>`}
+</div>`).join("")}</div>`;
+}else if(screen==="overview"){
+app.innerHTML=`<button class="secondary" onclick="screen='units';render()">← ${t("Unidades","Units")}</button>
+<h2>${t("Unidad 1 · Números y operaciones","Unit 1 · Number and Operations")}</h2>
+<div class="card">${progress()}</div><br>
+<div class="grid">${lessons.map((l,i)=>`
+<div class="card lesson"><span class="tag">${t("Lección","Lesson")} ${i+1}</span>
+<h3>${l.title[lang==="es"?0:1]}</h3>
+<p>${completed(i)?"✓ "+t("Completada","Completed"):t("Por practicar","Practice pending")}</p>
+<button class="primary" onclick="current=${i};screen='lesson';render()">${t("Abrir lección","Open lesson")}</button>
+</div>`).join("")}</div>`;
+}else if(screen==="lesson"){
+let l=lessons[current],ix=lang==="es"?0:1;
+app.innerHTML=`<button class="secondary" onclick="screen='overview';render()">← ${t("Volver a la unidad","Back to unit")}</button>
+<h2>${t("Lección","Lesson")} ${current+1}: ${l.title[ix]}</h2>
+<div class="card"><h3>${t("Aprendemos","Learn")}</h3>
+<p style="line-height:1.7">${l.intro[ix]}</p>
+<h3>${t("Ejemplo resuelto","Worked example")}</h3>
+<div class="example">${l.example[ix]}</div></div>
+<h3>${t("Practica y comprueba","Practice and check")}</h3>
+<p class="muted">${t("Escribe solo el resultado numérico. Puedes usar punto o coma decimal.","Enter only the numerical result. You may use a decimal point or comma.")}</p>
+${l.questions.map((q,j)=>`
+<div class="question">
+<p><b>${j+1}.</b> ${q[0]}</p>
+<input id="answer-${j}" inputmode="decimal" aria-label="${t("Respuesta","Answer")} ${j+1}">
+<button class="primary" onclick="check(${j})">${t("Comprobar","Check")}</button>
+<button class="secondary" onclick="hint(${j})">${t("Pista","Hint")}</button>
+<div id="feedback-${j}" class="feedback" aria-live="polite">
+${saved[current+"-"+j]===true?"✓ "+t("Correcto anteriormente","Previously correct"):""}</div>
+</div>`).join("")}
+<div class="row">
+<button class="secondary" onclick="screen='overview';render()">${t("Ver progreso","View progress")}</button>
+${current<3?`<button class="primary" onclick="current++;render()">${t("Siguiente lección","Next lesson")} →</button>`:""}
+</div>`;
+}
+}
+function hint(j){
+let q=lessons[current].questions[j];
+document.getElementById("feedback-"+j).textContent=q[lang==="es"?2:3];
+document.getElementById("feedback-"+j).className="feedback";
+}
+function check(j){
+let input=document.getElementById("answer-"+j);
+let raw=input.value.trim().replace(",",".");
+let value=Number(raw);
+let target=lessons[current].questions[j][1];
+let ok=raw!==""&&Number.isFinite(value)&&Math.abs(value-target)<0.000001;
+let f=document.getElementById("feedback-"+j);
+if(ok){
+saved[current+"-"+j]=true;store();
+f.textContent="✓ "+t("¡Correcto! Muy bien.","Correct! Well done.");
+f.className="feedback correct";
+}else{
+f.textContent=t("Inténtalo nuevamente. Puedes consultar la pista.","Try again. You can use the hint.");
+f.className="feedback incorrect";
+}
+}
+function switchLanguage(){lang=lang==="es"?"en":"es";document.documentElement.lang=lang;render()}
+render();
+</script>
 </body>
 </html>
-  
