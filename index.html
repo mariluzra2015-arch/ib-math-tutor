@@ -1,6 +1,18 @@
 
 <!DOCTYPE html>
 <html lang="es">
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']]
+  }
+};
+</script>
+<script defer
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -90,8 +102,16 @@ intro:[
 "A rational number can be written as a/b, where a and b are integers and b is not zero. Use a common denominator to add fractions; multiply numerators and denominators to multiply fractions."
 ],
 example:[
-"Calcula: 1/2 + 1/4<br>1. Expresamos 1/2 como 2/4.<br>2. Sumamos: 2/4 + 1/4 = 3/4 = 0.75.",
-"Evaluate: 1/2 + 1/4<br>1. Rewrite 1/2 as 2/4.<br>2. Add: 2/4 + 1/4 = 3/4 = 0.75."
+"Calcula: 
+"\\(\\frac{1}{2}+\\frac{1}{4}\\)"
+<br>1. Expresamos 1/2 como 2/4.<br>2. Sumamos: 
+"\\(\\frac{1}{2}+\\frac{1}{4}\\)"
+ = 3/4 = 0.75.",
+"Evaluate:
+"\\(\\frac{1}{2}+\\frac{1}{4}\\)"
+<br>1. Rewrite 1/2 as 2/4.<br>2. Add:
+"\\(\\frac{1}{2}+\\frac{1}{4}\\)"
+ = 3/4 = 0.75."
 ],
 questions:[
 ["1/2 + 1/4",0.75,"Usa denominador común 4.","Use 4 as the common denominator."],
@@ -224,7 +244,16 @@ f.textContent=t("Inténtalo nuevamente. Puedes consultar la pista.","Try again. 
 f.className="feedback incorrect";
 }
 }
-function switchLanguage(){lang=lang==="es"?"en":"es";document.documentElement.lang=lang;render()}
+function renderMath() {
+  if (window.MathJax && MathJax.typesetPromise) {
+    MathJax.typesetPromise([app]).catch(console.error);
+  }
+}
+
+function switchLanguage(){lang=lang==="es"?"en":"es";document.documentElement.lang=lang;render()
+renderMath();
+}
+
 render();
 </script>
 </body>
