@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+  <title>IB Math Tutor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f2f6fc;
+      color: #183153;
+      text-align: center;
+    }
+    header {
+      background: #173b73;
+      color: white;
+      padding: 35px 15px;
+    }
+    main { padding: 25px 15px; }
+    .courses {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      max-width: 950px;
+      margin: 25px auto;
+    }
+    .course {
+      background: white;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 3px 12px #0001;
+    }
+    button {
+      padding: 12px 22px;
+      background: #2563eb;
+      color: white;
+      border: 0;
+      border-radius: 9px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>IB Math Tutor</h1>
+    <p id="subtitle">Aprende matemáticas paso a paso</p>
+    <button onclick="changeLanguage()">
+      English / Español
+    </button>
+  </header>
+
+  <main>
+    <h2 id="heading">Selecciona tu grado</h2>
+    <div class="courses">
+      <div class="course">
+        <h2>G9</h2>
+        <p>Pre-IB Foundation</p>
+        <button onclick="openG9()" id="start">
+          Comenzar
+        </button>
+      </div>
+      <div class="course">
+        <h2>G10</h2>
+        <p>Pre-Diploma</p>
+        <button disabled>Coming soon</button>
+      </div>
+      <div class="course">
+        <h2>G11</h2>
+        <p>AA SL - Year 1</p>
+        <button disabled>Coming soon</button>
+      </div>
+      <div class="course">
+        <h2>G12</h2>
+        <p>AA SL - Year 2</p>
+        <button disabled>Coming soon</button>
+      </div>
+    </div>
+    <section id="content"></section>
+  </main>
+
+  <script>
+    let english = false;
+
+    function changeLanguage() {
+      english = !english;
+      document.getElementById("subtitle")
+        .textContent = english
+        ? "Learn mathematics step by step"
+        : "Aprende matemáticas paso a paso";
+      document.getElementById("heading")
+        .textContent = english
+        ? "Choose your grade"
+        : "Selecciona tu grado";
+      document.getElementById("start")
+        .textContent = english ? "Start" : "Comenzar";
+      if (document.getElementById("content").innerHTML) {
+        openG9();
+      }
+    }
+
+    function openG9() {
+      const topics = english
+        ? ["Number and Operations",
+           "Algebraic Expressions",
+           "Equations and Inequalities",
+           "Functions and Graphs",
+           "Quadratic Expressions",
+           "Geometry",
+           "Trigonometry",
+           "Statistics",
+           "Probability"]
+        : ["Números y operaciones",
+           "Expresiones algebraicas",
+           "Ecuaciones e inecuaciones",
+           "Funciones y gráficas",
+           "Expresiones cuadráticas",
+           "Geometría",
+           "Trigonometría",
+           "Estadística",
+           "Probabilidad"];
+
+      const section = document.getElementById("content");
+      section.innerHTML =
+        "<h2>G9 - Pre-IB Foundation</h2>" +
+        topics.map((topic, i) =>
+          "<p>" + (i + 1) + ". " + topic + "</p>"
+        ).join("");
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>
+  
